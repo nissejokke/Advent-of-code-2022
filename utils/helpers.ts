@@ -22,9 +22,14 @@ declare global {
       strings(): string[];
 
       /**
+       * Trims values
+       */
+      trim(): T[];
+
+      /**
        * Splits up array into multiple arrays on separator
        */
-      chunks(separator: string): T[][];
+      split(separator: string): T[][];
 
       /**
        * Return unique values
@@ -42,6 +47,11 @@ declare global {
       last(): T;
 
       /**
+       * Returns new array with last count from original array
+       */
+      lastVals(count: number): T[];
+
+      /**
        * Min value
        */
       min(): number;
@@ -50,6 +60,26 @@ declare global {
        * Max value
        */
       max(): number;
+
+      /**
+       * Every value that Boolean(value) returns true for
+       */
+      truthful(): T[];
+
+      /**
+       * Intersect with another array, returns new array
+       */
+      intersect(arr: T[]): T[];
+
+      /**
+       * Union with another array, returns new array
+       */
+      union(arr: T[]): T[];
+
+      /**
+       * Removes arr values from this, returns new array
+       */
+      diff(arr: T[]): T[];
     }
   }
 
@@ -76,7 +106,11 @@ Array.prototype.strings = function() {
     return this.map(val => val.toString());
 };
 
-Array.prototype.chunks = function<T>(separator: string): T[][] {
+Array.prototype.trim = function() {
+    return this.map(val => typeof val === 'string' ? val.trim() : val);
+};
+
+Array.prototype.split = function<T>(separator: string): T[][] {
     return this.reduce((av: T[][], cv: T) => {
         if (cv === separator)
             av.push([]);
@@ -98,6 +132,10 @@ Array.prototype.last = function() {
     return this[this.length - 1];
 };
 
+Array.prototype.lastVals = function(count: number) {
+    return this.slice(this.length - count);
+};
+
 Array.prototype.min = function() {
     return Math.min(...this);
 };
@@ -106,24 +144,54 @@ Array.prototype.max = function() {
     return Math.max(...this);
 };
 
+Array.prototype.truthful = function() {
+    return this.filter(Boolean);
+};
+
+Array.prototype.intersect = function(arr) {
+    const set = new Set(arr);
+    const intersection = new Set(
+        [...this].filter(element => set.has(element))
+    );
+    return [...intersection];
+};
+
+Array.prototype.union = function(arr) {
+    const set = new Set([...this, ...arr]);
+    return [...set];
+};
+
+Array.prototype.diff = function(arr) {
+    return this.filter(val => !arr.includes(val));
+};
+
 declare global {
     interface String {
         /**
          * Returns array with all numbers found
          */
-        ints(): number[];
+        nums(): number[];
 
         /**
          * Split string on newline
          */
         lines(): string[];
+
+        /**
+         * Split string into words
+         */
+        words(): string[];
     }
 }
 
-String.prototype.ints = function() {
+String.prototype.nums = function() {
     return (this.match(/\d+/g) as unknown[]).nums();
 };
 
 String.prototype.lines = function() {
     return this.split(/\n/g);
+};
+
+String.prototype.words = function() {
+    return this.split(/\s+/g);
 };

@@ -1,4 +1,4 @@
-import './helpers.ts';
+import './utils/helpers.ts';
 
 let data = await Deno.readTextFile('7.txt');
 // let data = `$ cd /
