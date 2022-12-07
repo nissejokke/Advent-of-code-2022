@@ -16,6 +16,13 @@ Deno.test("array split", () => {
     assertEquals(value, expected);
 });
 
+Deno.test("array chunks", () => {
+    const value = [1,2,3,4,5,6].chunks(2);
+    const expected = [[1,2],[3,4],[5,6]];
+
+    assertEquals(value, expected);
+});
+
 Deno.test("array intersect", () => {
     const value = [1,2,3,4].intersect([3,4,5,6]);
     const expected = [3,4];

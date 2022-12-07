@@ -32,6 +32,11 @@ declare global {
       split(separator: string): T[][];
 
       /**
+       * Splits up array into multiple arrays sized size
+       */
+      chunks(chunkSize: number): T[][];
+
+      /**
        * Return unique values
        */
       uniq(): T[];
@@ -47,7 +52,7 @@ declare global {
       last(): T;
 
       /**
-       * Returns new array with last count from original array
+       * Returns new array with last number of items from original array
        */
       lastVals(count: number): T[];
 
@@ -119,6 +124,19 @@ Array.prototype.split = function<T>(separator: string): T[][] {
         return av;
     }, [[]] as T[][]);
 };
+
+Array.prototype.chunks = function<T>(chunkSize: number): T[][] {
+    return this.reduce((av, cv) => {
+        let lastArr = av.last();
+        if (!lastArr || lastArr.length === chunkSize) {
+            lastArr = [];
+            av.push(lastArr);
+        }
+        lastArr.push(cv);
+
+        return av;
+    }, []);
+}
 
 Array.prototype.uniq = function() {
     return [...new Set(this)];
