@@ -37,7 +37,6 @@ Deno.test("array union", () => {
     assertEquals(value, expected);
 });
 
-
 Deno.test("array diff", () => {
     const value = [1,2,3,4].diff([3,4,5,6]);
     const expected = [1,2];
@@ -45,9 +44,16 @@ Deno.test("array diff", () => {
     assertEquals(value, expected);
 });
 
+Deno.test("array sortAsc", () => {
+    const value = [100,20,3,300].sortAsc();
+    const expected = [3,20,100,300];
+
+    assertEquals(value, expected);
+});
+
 console.log([1,'2x',3, 3,1].nums().uniq().sum());
 
-console.log([2,4,1].sortd());
+console.log([2,4,1].sortDesc());
 
 console.log([0x01, 2,'4','xy'].sum());
 

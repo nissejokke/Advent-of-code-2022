@@ -42,9 +42,14 @@ declare global {
       uniq(): T[];
 
       /**
-       * Sort descending
+       * Sort numbers descending
        */
-      sortd(): T[];
+      sortDesc(): T[];
+
+      /**
+       * Sort numbers ascending
+       */
+       sortAsc(): T[];
 
       /**
        * Last value in array
@@ -142,8 +147,12 @@ Array.prototype.uniq = function() {
     return [...new Set(this)];
 };
 
-Array.prototype.sortd = function() {
+Array.prototype.sortDesc = function() {
     return [...this].sort((a,b)=>b-a);
+};
+
+Array.prototype.sortAsc = function() {
+    return [...this].sort((a,b)=>a-b);
 };
 
 Array.prototype.last = function() {

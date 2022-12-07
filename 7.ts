@@ -69,10 +69,10 @@ function sizeOfDir(parent: File[], parentDirs: string): number {
 }
 
 // part 1
-const sum = Object.keys(files).map(file => {
-    const size = sizeOfDir(files[file], file);
-    return {file, size};
-}).filter(file => file.size <= 100000).map(file => file.size).sum();
+const sum = Object.keys(files)
+    .map(file => sizeOfDir(files[file], file))
+    .filter(size => size <= 100000)
+    .sum();
 console.log(sum);
 
 // part 2
@@ -81,11 +81,10 @@ const freeNeeded = 30000000;
 const used = sizeOfDir(files[''], '');
 const unused = systemSize - used;
 
-const path = Object.keys(files).map(key => {
-    const size = sizeOfDir(files[key], key);
-    return { key, size };
-}).filter(a => {
-    return unused + a.size >= freeNeeded;
-}).sort((a,b) => b.size - a.size).last();
+const result = Object.keys(files)
+    .map(key => sizeOfDir(files[key], key))
+    .filter(size => unused + size >= freeNeeded)
+    .sortDesc()
+    .last();
 
-console.log(path.size);
+console.log(result);
