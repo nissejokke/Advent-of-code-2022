@@ -49,7 +49,9 @@ declare global {
       /**
        * Sort numbers ascending
        */
-       sortAsc(): T[];
+      sortAsc(): T[];
+
+      valueEquals(arr: T[]): boolean;
 
       /**
        * Last value in array
@@ -153,6 +155,10 @@ Array.prototype.sortDesc = function() {
 
 Array.prototype.sortAsc = function() {
     return [...this].sort((a,b)=>a-b);
+};
+
+Array.prototype.valueEquals = function(arr) {
+    return JSON.stringify(this) === JSON.stringify(arr);
 };
 
 Array.prototype.last = function() {
