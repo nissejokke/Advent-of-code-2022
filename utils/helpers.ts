@@ -233,6 +233,6 @@ String.prototype.words = function() {
     return this.split(/\s+/g);
 };
 
-export function range(upperBound: number) {
-    return new Array(upperBound).fill(0).map((_,i) => i);
+export function range(upperBound: number, lowerBound = 0) {
+    return new Array(upperBound - lowerBound).fill(0).map((_,i) => i + lowerBound);
 }
