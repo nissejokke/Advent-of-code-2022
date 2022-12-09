@@ -51,6 +51,10 @@ declare global {
        */
       sortAsc(): T[];
 
+      /**
+       * Is array value equal to another array
+       * @param arr 
+       */
       valueEquals(arr: T[]): boolean;
 
       /**
@@ -228,3 +232,7 @@ String.prototype.lines = function() {
 String.prototype.words = function() {
     return this.split(/\s+/g);
 };
+
+export function range(upperBound: number) {
+    return new Array(upperBound).fill(0).map((_,i) => i);
+}
