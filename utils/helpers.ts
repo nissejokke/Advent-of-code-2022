@@ -218,6 +218,11 @@ declare global {
          * Split string into words
          */
         words(): string[];
+
+        /**
+         * Inserts string at position in string returning new string without modifying current string
+         */
+        replaceAt(index: number, replacement: string): string;
     }
 }
 
@@ -232,6 +237,10 @@ String.prototype.lines = function() {
 String.prototype.words = function() {
     return this.split(/\s+/g);
 };
+
+String.prototype.replaceAt = function(index: number, replacement: string): string {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
 
 export function range(upperBound: number, lowerBound = 0) {
     return new Array(upperBound - lowerBound).fill(0).map((_,i) => i + lowerBound);
