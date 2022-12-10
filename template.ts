@@ -1,5 +1,5 @@
 import './utils/helpers.ts';
 
-// let data = await Deno.readTextFile('XXX.txt');
-let data = ``.trim();
+// let input = await Deno.readTextFile('XXX.txt');
+let exampleInput = ``.trim();
 
