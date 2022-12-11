@@ -110,7 +110,7 @@ Array.prototype.nums = function() {
     return this.map(val => {
         const parsedVal = parseFloat(val);
         return Number.isNaN(parsedVal) ? null : parsedVal;
-    }).filter((val) => Boolean(val)) as number[];
+    }).filter((val) => val != null) as number[];
 };
 
 Array.prototype.mean = function() {
