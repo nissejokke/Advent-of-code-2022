@@ -26,8 +26,6 @@ const simulateSandfall = (
   type: "untilFallingIntoVoid" | "untilReachedFloor",
   input: string
 ) => {
-  const sandStart = [500, 0];
-
   const topos = (x: number, y: number) => x + "," + y;
 
   const map = input.lines().reduce((map, line) => {
@@ -58,12 +56,7 @@ const simulateSandfall = (
     return map[topos(x, y)];
   };
 
-  const isFreeFalling = (x: number, y: number): boolean => {
-    const xposes = Object.keys(map).filter((key) => key.startsWith(x + ","));
-    const posBelow = xposes.find((pos) => pos.split(",").nums()[1] > y);
-    return !posBelow;
-  };
-
+  const sandStart = [500, 0];
   let sand: number[];
   let sandCount = 0;
   let stop = false;
@@ -71,21 +64,20 @@ const simulateSandfall = (
     sand = sandStart;
     while (!stop) {
       const beforeSand = sand;
-      for (const posCandidate of [
+
+      const posCanditates = [
         [0, 1],
         [-1, 1],
         [1, 1],
-      ]) {
+      ];
+      for (const posCandidate of posCanditates) {
         const sandNext = [sand[0] + posCandidate[0], sand[1] + posCandidate[1]];
         const [x, y] = sandNext;
 
         const isAir = !getAt(x, y);
         if (!isAir) continue;
 
-        if (
-          type === "untilFallingIntoVoid" &&
-          isFreeFalling(sand[0], sand[1])
-        ) {
+        if (type === "untilFallingIntoVoid" && sand[1] > highestY) {
           stop = true;
           break;
         }
