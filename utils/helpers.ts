@@ -96,6 +96,16 @@ declare global {
        * Removes arr values from this, returns new array
        */
       diff(arr: T[]): T[];
+
+      /**
+       * Removes at position, returns new array
+       */
+      removeAt(index: number): T[];
+
+      /**
+       * Insets item at position, returns new array
+       */
+      insertAt(index: number, ...vals: T[]): T[];
     }
   }
 
@@ -200,6 +210,14 @@ Array.prototype.union = function(arr) {
 
 Array.prototype.diff = function(arr) {
     return this.filter(val => !arr.includes(val));
+};
+
+Array.prototype.removeAt = function(index: number) {
+    return [...this.slice(0, index), ...this.slice(index + 1)];
+};
+
+Array.prototype.insertAt = function<T>(index: number, ...vals: T[]) {
+    return [...this.slice(0, index % this.length), ...vals, ...this.slice(index % this.length)];
 };
 
 declare global {

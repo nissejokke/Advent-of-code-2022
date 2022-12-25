@@ -71,7 +71,49 @@ Deno.test("range upper, lowerbound", () => {
     const expected = [1, 2];
   
     assertEquals(value, expected);
-  });
+});
+
+Deno.test("removeAt", () => {
+  const value = [1,2,3].removeAt(0);
+  const expected = [2,3];
+
+  assertEquals(value, expected);
+});
+
+Deno.test("removeAt #2", () => {
+  const value = [1,2,3].removeAt(1);
+  const expected = [1,3];
+
+  assertEquals(value, expected);
+});
+
+Deno.test("insertAt", () => {
+  const value = [1,2,3].insertAt(0, 0);
+  const expected = [0,1,2,3];
+
+  assertEquals(value, expected);
+});
+
+Deno.test("insertAt #2", () => {
+  const value = [1,2,3].insertAt(1,4);
+  const expected = [1,4,2,3];
+
+  assertEquals(value, expected);
+});
+
+Deno.test("insertAt #3", () => {
+  const value = [1,2,3].insertAt(-1,4);
+  const expected = [1,2,4,3];
+
+  assertEquals(value, expected);
+});
+
+Deno.test("insertAt #4", () => {
+  const value = [1, 2, -3, 0, 3, -2].insertAt(4+5,4);
+  const expected = [1, 2, -3, 4, 0, 3, -2];
+
+  assertEquals(value, expected);
+});
 
 console.log([1, "2x", 3, 3, 1].nums().uniq().sum());
 
